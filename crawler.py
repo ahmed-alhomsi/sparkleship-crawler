@@ -4,9 +4,14 @@ import requests
 import json
 import traceback
 import re
+import os                                                                                     
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import string
+# import string
+from dotenv import load_dotenv
+load_dotenv()
+key = os.getenv("KEY")
+
 MAX_LINKS = 100
 CURRENT_LINKS = 0
 
@@ -62,7 +67,7 @@ def crawler(url, MAX_LINKS, CURRENT_LINKS, scholarships_list):
     CURRENT_LINKS = CURRENT_LINKS + 1
 
 
-link = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBhlAUR1dTjOXd1vb8akHiPmTYnbGH8giA&cx=b043b2f15aecd42bb&q=scholarships"
+link = f"https://www.googleapis.com/customsearch/v1?key={key}&cx=b043b2f15aecd42bb&q=scholarships"
 
 # initial_response = requests.get(f"{link} {date.today()}").text
 initial_response = json.loads(requests.get(f"{link} {date.today()}").text)["items"]
